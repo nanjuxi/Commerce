@@ -1,0 +1,26 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Create Listing</h2>
+    <form action="" method=""POST>
+        {%csrf_token%}
+        <input name="objectName" type="text" placeholder="object's name">
+        <br><br>
+        <textarea name="description"  style="height:280px; width:350px;"  placeholder="description of object"></textarea>
+        <br><br>
+        <input style="width:90px;" name="startBid" type="number" placeholder="StartBid" >
+        <br><br>
+        <img src="../../../pictures/BuDing.jpeg"><br><br>
+         <div>
+                <select>
+                    <option>food</option>
+                    <option>cloth</option>
+                    <option>furniture</option>
+                    <option>others</option>
+                </select>
+            </div>
+        <br><br>
+        <button>Submit</button>
+    </form>
+
+{% endblock %}
