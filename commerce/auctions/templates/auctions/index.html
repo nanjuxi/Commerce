@@ -2,6 +2,12 @@
 
 {% block body %}
     <h2>Active Listings</h2>
-
-    TODO
+    {% if form %}
+    <div>{{form.objectName}}</div>
+    <div>{{form.description}}</div>
+    <div>{{form.startBid}}</div>
+    <div>{{form.image}}</div>
+    {% else %}
+    {{ None}}
+    {%endif%}
 {% endblock %}

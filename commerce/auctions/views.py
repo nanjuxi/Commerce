@@ -3,9 +3,11 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
 from .models import User
-
+from django import forms
+from django.forms import widgets
+from django.forms import fields
+from django.utils.safestring import mark_safe
 
 def index(request):
     return render(request, "auctions/index.html")
@@ -63,7 +65,39 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
+class ProductForm(forms.Form):
+    objectName = forms.CharField(max_length=100, widget=widgets.TextInput(attrs={'class':'form-control'}), label=mark_safe("objectName"))
+    description = forms.CharField(max_length=2000, widget=widgets.Textarea(attrs={'class':'form-control'}), label=mark_safe("description"))
+    startBid = forms.FloatField(widget=widgets.NumberInput(attrs={'class':'form-control'}), label=mark_safe("startBid"))
+    image = forms.ImageField(widget=widgets.FileInput(attrs={'class':'form-control'}), label=mark_safe("image"))
+    c = [ (1,'food'), (2,'cloth'), (3,'furniture'), (4,'other'), ]
+    Select = forms.IntegerField(widget=forms.Select(choices=c, attrs={'class':'form-control'}))
+
+
+
+
 def create(request):
     return render(request, "auctions/create.html", {
-
+        "form": ProductForm()
     })
+
+def get(request):
+    form = ProductForm(request.GET)
+    if form.is_valid():
+        return render(request, "auctions/index.html", {
+            "form": form
+        })
+    else:
+        return render(request, "auctions/index.html", {
+            "None": "TODO"
+        })
+
+
+
+
+
+
+
+
+
+
