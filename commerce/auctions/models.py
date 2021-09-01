@@ -10,6 +10,15 @@ class User(AbstractUser):
     # def __self__(self):
     #     return f"{self.name} {self.password}"
 
+class Product(models.Model):
+    objectName = models.CharField(max_length=100)
+    description = models.CharField(max_length=2000)
+    startBid = models.FloatField()
+    image = models.ImageField(upload_to='images/')
+    Select = models.IntegerField()
+
+
+
 
 class auction_listing(models.Model):
     name = models.CharField(max_length=100)

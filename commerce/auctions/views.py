@@ -3,11 +3,11 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from .models import User
 from django import forms
 from django.forms import widgets
 from django.forms import fields
 from django.utils.safestring import mark_safe
+from .models import *
 
 def index(request):
     return render(request, "auctions/index.html")
@@ -83,16 +83,12 @@ def create(request):
 
 def get(request):
     form = ProductForm(request.GET)
-    if form.is_valid():
-        return render(request, "auctions/index.html", {
-            "form": form
-        })
-    else:
-        return render(request, "auctions/index.html", {
-            "None": "TODO"
-        })
-
-
+    f = Product(objectName=ProductForm.objectName, describtion=ProductForm.description, startBid=ProductForm.startBid,
+                image=ProductForm.image, Select=ProductForm.Select)
+    f.save()
+    return render(request, "auctions/index.html", {
+        "form": form
+    })
 
 
 
