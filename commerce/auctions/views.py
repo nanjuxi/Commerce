@@ -83,8 +83,13 @@ def create(request):
 
 def get(request):
     form = ProductForm(request.GET)
-    f = Product(objectName=ProductForm.objectName, describtion=ProductForm.description, startBid=ProductForm.startBid,
-                image=ProductForm.image, Select=ProductForm.Select)
+    objectName = request.GET.get("objectName")
+    description = request.GET.get("description")
+    startBid = request.GET.get("startBid")
+    image = request.GET.get("image")
+    Select = request.GET.get("Select")
+    f = Product(objectName=objectName, description=description, startBid=startBid,
+                image=image, Select=Select)
     f.save()
     return render(request, "auctions/index.html", {
         "form": form
